@@ -1,0 +1,33 @@
+
+{%extends "layout.html"%}
+{%block content%}
+<form action="" method="post">
+    <div>
+    <p >
+        {{form.hidden_tag()}}
+    {{form.username.label}}
+    {{form.username(class="input_field")}}
+
+    {% for error in form.username.errors %}
+    <span style="color:red;">{{error}}</span>
+    {% endfor %}
+    </p >
+</div>
+
+    <div>
+        <p>
+            {{form.password.label}}
+            {{form.password(class="input_field")}}
+        </p>
+    </div>
+    <div>
+        <p>
+            {{form.confirm.label}}
+            {{form.confirm (class="input_field")}}
+        </p>
+    </div>
+
+    {{form.submit(class="button")}}
+</form>
+
+{%endblock%}

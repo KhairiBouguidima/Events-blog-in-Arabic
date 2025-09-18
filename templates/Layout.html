@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:link="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>info Stars | {{title}}</title>
+</head>
+<body>
+<div class="notify">
+    {%with messages = get_flashed_messages(with_categories = False)%}
+    {%if messages%}
+        {%for message in messages%}
+    <p style="color:green;margin:0;text_align:center;">
+        {{message}}
+    </p>
+    {%endfor%}
+    {%endif%}
+    {%endwith%}
+</div>
+{%block content%}
+
+{%endblock%}
+
+</body>
+</html>
