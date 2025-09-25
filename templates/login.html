@@ -1,5 +1,22 @@
 {%extends "layout.html"%}
 
 {%block content%}
-<h1>this is the Login page</h1>
+<h1> Login </h1>
+
+<form action="" method="post">
+    {{login.hidden_tag()}}
+
+<div>
+    <p>
+        {{login.username.label}}
+        {{login.username}}
+    </p>
+    <p>
+        {{login.password.label}}
+        {{login.password}}
+    </p>
+    {{login.submit}}
+</div>
+</form>
+
 {%endblock%}

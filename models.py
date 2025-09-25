@@ -8,7 +8,7 @@ class UserModel(db.Model):
     __tablename__ = 'user'
 
     id:Mapped[int] = mapped_column(db.Integer, primary_key=True ,autoincrement=True)
-    username :Mapped[str] = mapped_column(db.String,unique=True)
+    username :Mapped[str] = mapped_column(db.String)
     password:Mapped[str] = mapped_column(db.String)
 
 #class publicationModel (db.Model):

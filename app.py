@@ -1,12 +1,7 @@
-import hashlib
-
 import bcrypt
-from argon2 import hash_password
-from fastapi_users import password
+from Demos.win32ts_logoff_disconnected import username
 from flask import *
-from forms import registrationForm
-from flask_login import LoginManager, UserMixin, current_user
-from flask_sqlalchemy import SQLAlchemy
+from forms import registrationForm,loginForm
 from models import UserModel ,db
 
 app = Flask(__name__)
@@ -31,21 +26,37 @@ def register():
         uname = form.username.data
         pword = form.password.data
         #hash password
-        pword_hash = bcrypt.hashpw(pword.encode('utf-8'), bcrypt.gensalt())
+        pword_hash = bcrypt.hashpw(pword.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
 
         model.username = uname
         model.password = pword_hash
         db.session.add(model)
         db.session.commit()
         flash('Registration successful')
-        return redirect('/Register')
+        return redirect('/Login')
     return render_template("register.html", form=form,title='Register')
 
 
-@app.get('/Login')
+@app.route('/Login',methods=['GET','POST'])
 def login():
-    return render_template('login.html',title='Login')
+    login = loginForm()
+    model = UserModel()
 
+    if login.validate_on_submit():
+        uname = login.username.data
+        pword = login.password.data
+        nameresh = model.query.filter_by(username=uname).first()
+        if bcrypt.checkpw(pword.encode('utf-8'),nameresh.password.encode('utf-8')) :
+            flash('Login successful')
+            return redirect('/Profile')
+        else:
+            flash('Login unsuccessful')
+            return redirect('/Login')
+    return render_template('login.html',title='Login',login=login)
+
+@app.route('/Profile')
+def profile():
+    return render_template('profile.html',title='Profile')
 
 
 if __name__ == "__main__":
