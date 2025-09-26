@@ -1,10 +1,10 @@
+from flask_login import current_user , login_required,UserMixin
 from flask_sqlalchemy import SQLAlchemy ,model
 from sqlalchemy import String, ForeignKeyConstraint
 from sqlalchemy.orm import mapped_column,Mapped ,DeclarativeBase
 db = SQLAlchemy()
 
-
-class UserModel(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = 'user'
 
     id:Mapped[int] = mapped_column(db.Integer, primary_key=True ,autoincrement=True)

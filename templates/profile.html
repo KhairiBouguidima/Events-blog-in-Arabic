@@ -6,5 +6,13 @@
 </head>
 <body>
 <h1>this is the profile</h1>
+<h2>
+    {% if current_user.is_authenticated %}
+    hi {{current_user.username}}
+    <a href="{{url_for('logout')}}">Logout</a>
+    {%endif%}
+
+
+</h2>
 </body>
 </html>
